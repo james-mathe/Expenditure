@@ -27,7 +27,6 @@ class ExpenditureController extends Controller
                 "message"=> "No Expenditure found"
             ]);
         }
-
     }
 
     /**
@@ -38,6 +37,7 @@ class ExpenditureController extends Controller
         $isValide = Validator::make($request->all(),[
             "name"=> "required",
             "amount"=> "required|integer",
+            "category_id"=> "required|integer",
         ]);
 
         if($isValide->fails()){
@@ -48,7 +48,8 @@ class ExpenditureController extends Controller
 
         $expenditure = Expenditure::create([
             "name"=> $request->name,
-            "amount"=> $request->amount
+            "amount"=> $request->amount,
+            "category_id"=> $request->category_id
         ]);
         return response()->json([
             "message"=> "You're Spending monney"
@@ -72,7 +73,8 @@ class ExpenditureController extends Controller
     {
         $isValide = Validator::make($request->all(),[
             "name"=> "required",
-            "amount"=> "required|integer"
+            "amount"=> "required|integer",
+            "category_id"=> "required|integer",
         ]);
         if($isValide->fails()){
             return response()->json([
@@ -81,7 +83,8 @@ class ExpenditureController extends Controller
         }
         $expenditure->update([
             "name"=> $request->name,
-            "amount"=> $request->amount
+            "amount"=> $request->amount,
+            "category_id"=> $request->category_id
         ]);
         return response()->json([
             "message"=> "Expenditure Updated Successfully"
